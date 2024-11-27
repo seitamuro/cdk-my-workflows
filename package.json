@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pnpm -r build"
+    "web:build": "pnpm run --filter web build",
+    "web:dev": "pnpm run --filter web dev",
+    "web:devw": "source setup-env.sh && pnpm run --filter web dev",
+    "cdk:deploy": "pnpm run --filter cdk cdk deploy --all"
   },
   "packageManager": "pnpm@7.19.0",
   "engines": {
