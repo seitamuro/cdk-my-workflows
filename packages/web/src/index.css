@@ -24,6 +24,11 @@ a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
+  transition: filter 0.3s ease;
+}
+
+a:hover {
+  filter: brightness(0.8);
 }
 
 body {
