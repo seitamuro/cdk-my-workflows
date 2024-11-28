@@ -12,10 +12,10 @@ const styles = {
     position: 'sticky' as const,
     top: 0,
     alignItems: 'center',
-    padding: '1rem 2rem',
+    padding: '1rem 0rem',
     backgroundColor: '#f8f9fa',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-    width: '100%',
+    width: '100vw',
     zIndex: 100,
   },
   appName: {
@@ -46,6 +46,19 @@ const styles = {
     height: '20px',
     gap: '1px',
   },
+  signInButton: {
+    padding: '0.5rem 1rem',
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '1rem',
+    whiteSpace: 'nowrap' as const,
+    '&:hover': {
+      backgroundColor: '#0056b3',
+    },
+  },
 };
 
 export const NavigationBar: React.FC = () => {
@@ -73,7 +86,7 @@ export const NavigationBar: React.FC = () => {
               <SignOutButton />
             </>
           ) : (
-            <button onClick={() => navigate('/signin')}>Sign In</button>
+            <button onClick={() => navigate('/signin')} style={styles.signInButton}>Sign In</button>
           )}
         </div>
       </nav>
