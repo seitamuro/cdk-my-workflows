@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { SignUpWithGoogle } from "../components/SignUpWithGoogle";
 
 export const HomePage = () => {
   const [count, setCount] = useState(0);
@@ -10,6 +11,8 @@ export const HomePage = () => {
       <button onClick={() => setCount(prev => prev - 1)}>-</button>
       <span>{count}</span>
       <button onClick={() => setCount(prev => prev + 1)}>+</button>
+
+      <SignUpWithGoogle />
     </div>
   );
 }

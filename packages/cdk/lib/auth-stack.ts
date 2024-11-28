@@ -21,26 +21,36 @@ export class AuthStack extends cdk.Stack {
           process.env.GOOGLE_OAUTH_CLIENT_SECRET || ""
         ),
         userPool: userPool,
-        scopes: ["email"],
+        scopes: ["email", "profile"],
         attributeMapping: {
           email: cognito.ProviderAttribute.GOOGLE_EMAIL,
+          givenName: cognito.ProviderAttribute.GOOGLE_GIVEN_NAME,
+          familyName: cognito.ProviderAttribute.GOOGLE_FAMILY_NAME,
         },
       }
     );
 
     const userPoolClient = new cognito.UserPoolClient(this, "UserPoolClient", {
       userPool,
-      generateSecret: true,
+      generateSecret: false, // パブリッククライアントのため、シークレットは不要
       supportedIdentityProviders: [
         cognito.UserPoolClientIdentityProvider.GOOGLE,
       ],
       oAuth: {
+        flows: {
+          authorizationCodeGrant: true,
+        },
+        scopes: [
+          cognito.OAuthScope.EMAIL,
+          cognito.OAuthScope.OPENID,
+          cognito.OAuthScope.PROFILE,
+        ],
         callbackUrls: ["http://localhost:5173"],
       },
     });
     userPoolClient.node.addDependency(googleProvider);
 
-    userPool.addDomain("CognitoDomain", {
+    const domain = userPool.addDomain("CognitoDomain", {
       cognitoDomain: {
         domainPrefix: "my-workflows-seimiura",
       },
@@ -51,6 +61,9 @@ export class AuthStack extends cdk.Stack {
     });
     new cdk.CfnOutput(this, "UserPoolClientId", {
       value: userPoolClient.userPoolClientId,
+    });
+    new cdk.CfnOutput(this, "CognitoDomain", {
+      value: domain.domainName,
     });
   }
 }
