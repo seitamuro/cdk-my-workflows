@@ -1,9 +1,10 @@
 import { Menu } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMyAuth } from '../hooks/useMyAuth';
-import { SignOutButton } from './auth/SignOutButton';
-import { SideDrawer } from './SideDrawer';
+import { useMyAuth } from '../../hooks/useMyAuth';
+import { SignOutButton } from '../auth/SignOutButton';
+import { SideDrawer } from '../SideDrawer';
+import "./NavigationBar.css";
 
 const styles = {
   navbar: {
@@ -87,7 +88,7 @@ export const NavigationBar: React.FC = () => {
               <SignOutButton />
             </>
           ) : (
-            <button onClick={() => navigate('/signin')} style={styles.signInButton}>Sign In</button>
+            <button className={"hover"} onClick={() => navigate('/signin')} style={styles.signInButton}>Sign In</button>
           )}
         </div>
       </nav>
