@@ -38,7 +38,7 @@ const styles = {
     border: 'none',
     padding: '0',
     cursor: 'pointer',
-    marginRight: '1rem',
+    margin: "0rem 1rem",
     display: 'flex',
     flexDirection: 'column' as const,
     justifyContent: 'space-between',
@@ -48,6 +48,7 @@ const styles = {
   },
   signInButton: {
     padding: '0.5rem 1rem',
+    margin: "0rem 1rem",
     backgroundColor: '#007bff',
     color: 'white',
     border: 'none',
