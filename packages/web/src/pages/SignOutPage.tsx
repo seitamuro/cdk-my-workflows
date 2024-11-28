@@ -1,5 +1,5 @@
-import { SignOutButton } from "../components/SignOutButton"
-import { SignOutWithGoogleButton } from "../components/SignOutWithGoogleButton"
+import { SignOutButton } from "../components/auth/SignOutButton"
+import { SignOutWithGoogleButton } from "../components/auth/SignOutWithGoogleButton"
 
 export const SignOutPage = () => {
   return (

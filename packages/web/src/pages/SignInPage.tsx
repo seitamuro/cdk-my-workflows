@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SignInButton } from "../components/SignInButton";
-import { SignUpWithGoogleButton } from "../components/SignUpWithGoogleButton";
+import { SignInButton } from "../components/auth/SignInButton";
+import { SignUpWithGoogleButton } from "../components/auth/SignUpWithGoogleButton";
 
 export const SignInPage = () => {
   const [username, setUsername] = useState('');
@@ -8,6 +8,7 @@ export const SignInPage = () => {
 
   return (
     <>
+      <h1>Sign In</h1>
       <div>
         username: <input onChange={(e) => setUsername(e.target.value)} type="text" />
       </div>

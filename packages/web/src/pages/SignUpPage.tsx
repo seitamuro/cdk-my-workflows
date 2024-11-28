@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ConfirmSignUp } from "../components/ConfirmSignUp";
-import { SignUpButton } from "../components/SignUpButton";
-import { SignUpWithGoogleButton } from "../components/SignUpWithGoogleButton";
+import { ConfirmSignUp } from "../components/auth/ConfirmSignUp";
+import { SignUpButton } from "../components/auth/SignUpButton";
+import { SignUpWithGoogleButton } from "../components/auth/SignUpWithGoogleButton";
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState('');
