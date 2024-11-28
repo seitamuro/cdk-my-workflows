@@ -2,6 +2,7 @@ import { getCurrentUser } from "@aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SignIn } from "../components/SignIn";
+import { SignOut } from "../components/SignOut";
 import { SignUp } from "../components/SignUp";
 import { SignUpWithGoogle } from "../components/SignUpWithGoogle";
 
@@ -30,6 +31,7 @@ export const HomePage = () => {
 
       <SignUpWithGoogle />
       <SignIn />
+      <SignOut />
       <SignUp />
 
       <div>
