@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useMyAuth } from "../hooks/useAuth";
+import { useMyAuth } from "../hooks/useMyAuth";
 
 export const HomePage = () => {
   const [count, setCount] = useState(0);
