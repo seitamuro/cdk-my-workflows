@@ -1,2 +1,3 @@
 .pnpm/
 node_modules/
+google-secrets.sh
