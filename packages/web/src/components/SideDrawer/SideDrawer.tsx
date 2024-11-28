@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './SideDrawer.css';
 
 interface SideDrawerProps {
   isOpen: boolean;
@@ -44,10 +45,7 @@ const styles = {
     fontSize: '1.1rem',
     display: 'block',
     padding: '0.5rem',
-    transition: 'background-color 0.2s',
-    ':hover': {
-      backgroundColor: '#f0f0f0',
-    },
+    transition: 'all 0.2s',
   },
 };
 
@@ -58,17 +56,17 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ isOpen, onClose }) => {
       <div style={styles.drawer(isOpen)}>
         <nav>
           <ul style={styles.menuList}>
-            <li style={styles.menuItem}>
+            <li style={styles.menuItem} className="menu-item">
               <Link to="/" style={styles.link} onClick={onClose}>
                 Home
               </Link>
             </li>
-            <li style={styles.menuItem}>
+            <li style={styles.menuItem} className="menu-item">
               <Link to="/signin" style={styles.link} onClick={onClose}>
                 Sign In
               </Link>
             </li>
-            <li style={styles.menuItem}>
+            <li style={styles.menuItem} className="menu-item">
               <Link to="/signup" style={styles.link} onClick={onClose}>
                 Sign Up
               </Link>
