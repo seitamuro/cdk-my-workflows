@@ -1,6 +1,6 @@
 import * as Auth from "@aws-amplify/auth";
 import { Amplify } from 'aws-amplify';
-import React, { useState } from 'react';
+import React from 'react';
 
 // AWS設定の初期化
 Amplify.configure({
@@ -12,9 +12,7 @@ Amplify.configure({
   }
 });
 
-export const SignOut: React.FC = () => {
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+export const SignOutButton: React.FC = () => {
 
   const handleSignOut = () => {
     // Cognitoでユーザー登録
@@ -25,19 +23,13 @@ export const SignOut: React.FC = () => {
       }
     }).then((data) => {
       console.log(data);
-      setSuccess('サインアウトに成功しました');
     }).catch((err) => {
       console.error(err);
-      setError('サインアウトに失敗しました');
     })
   };
 
   return (
     <div>
-      <h2>サインアウト</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-
       <button onClick={handleSignOut}>サインアウト</button>
     </div>
   );

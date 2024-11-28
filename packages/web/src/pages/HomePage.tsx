@@ -1,15 +1,13 @@
 import { getCurrentUser } from "@aws-amplify/auth";
 import { useEffect, useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { Link } from "react-router-dom";
-import { SignIn } from "../components/SignIn";
-import { SignOut } from "../components/SignOut";
-import { SignUp } from "../components/SignUp";
-import { SignUpWithGoogle } from "../components/SignUpWithGoogle";
 
 export const HomePage = () => {
   const [count, setCount] = useState(0);
   const [username, setUsername] = useState('');
   const [userId, setUserId] = useState('');
+  const auth = useAuth();
 
   useEffect(() => {
     const user = getCurrentUser();
@@ -29,15 +27,12 @@ export const HomePage = () => {
       <span>{count}</span>
       <button onClick={() => setCount(prev => prev + 1)}>+</button>
 
-      <SignUpWithGoogle />
-      <SignIn />
-      <SignOut />
-      <SignUp />
-
       <div>
         <h2>ユーザー情報</h2>
         <p>ユーザー名: {username}</p>
         <p>ユーザーID: {userId}</p>
+        <p>アクセストークン: {auth.user?.access_token}</p>
+        <p>IDトークン: {auth.user?.id_token}</p>
       </div>
     </div>
   );
