@@ -1,3 +1,4 @@
+import { Menu } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMyAuth } from '../hooks/useMyAuth';
@@ -35,7 +36,7 @@ const styles = {
   menuButton: {
     background: 'none',
     border: 'none',
-    padding: '0.5rem',
+    padding: '0',
     cursor: 'pointer',
     marginRight: '1rem',
     display: 'flex',
@@ -43,12 +44,7 @@ const styles = {
     justifyContent: 'space-between',
     width: '24px',
     height: '20px',
-  },
-  menuLine: {
-    width: '100%',
-    height: '2px',
-    backgroundColor: '#333',
-    transition: 'all 0.3s ease',
+    gap: '1px',
   },
 };
 
@@ -65,10 +61,8 @@ export const NavigationBar: React.FC = () => {
     <>
       <nav style={styles.navbar}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button onClick={toggleDrawer} style={styles.menuButton}>
-            <div style={styles.menuLine}></div>
-            <div style={styles.menuLine}></div>
-            <div style={styles.menuLine}></div>
+          <button onClick={toggleDrawer} style={styles.menuButton} >
+            <Menu style={{ color: '#333' }} />
           </button>
           <Link to="/"><h1 style={styles.appName}>My Workflows</h1></Link>
         </div>
