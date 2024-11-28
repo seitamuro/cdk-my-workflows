@@ -9,21 +9,26 @@ export const useMyAuth = () => {
   const [authorization, setAuthorization] = useState<string | null>(null);
 
   useEffect(() => {
-    if (auth) {
+    if (auth.isAuthenticated) {
+      console.log("auth", auth);
       setIsAuthenticated(auth.isAuthenticated);
       setUserId(auth.user?.profile.sub || null);
-      setAuthorization(auth.user?.id_token || null);
+      if (auth.user?.id_token) {
+        setAuthorization(auth.user?.id_token);
+      }
     }
 
     getCurrentUser().then((data) => {
-      console.log(data);
+      console.log("getCurrentUser:", data);
       setIsAuthenticated(true);
       setUserId(data?.userId || null);
     });
 
     fetchAuthSession().then((data) => {
-      console.log(data);
-      setAuthorization(data.tokens?.idToken?.toString() || null);
+      console.log("fetchAuthSesson: ", data);
+      if (data.tokens?.idToken) {
+        setAuthorization(data.tokens?.idToken?.toString());
+      }
     });
   }, [auth]);
 

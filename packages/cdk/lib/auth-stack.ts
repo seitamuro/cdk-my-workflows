@@ -3,6 +3,9 @@ import * as cognito from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
 
 export class AuthStack extends cdk.Stack {
+  userPool: cognito.UserPool;
+  identityPool: cognito.CfnIdentityPool;
+
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -56,6 +59,53 @@ export class AuthStack extends cdk.Stack {
       },
     });
 
+    const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
+      allowUnauthenticatedIdentities: false,
+      cognitoIdentityProviders: [
+        {
+          clientId: userPoolClient.userPoolClientId,
+          providerName: userPool.userPoolProviderName,
+        },
+      ],
+    });
+
+    const authenticatedRole = new cdk.aws_iam.Role(this, "AuthenticatedRole", {
+      assumedBy: new cdk.aws_iam.FederatedPrincipal(
+        "cognito-identity.amazonaws.com",
+        {
+          StringEquals: {
+            "cognito-identity.amazonaws.com:aud": identityPool.ref,
+          },
+          "ForAnyValue:StringLike": {
+            "cognito-identity.amazonaws.com:amr": "authenticated",
+          },
+        },
+        "sts:AssumeRoleWithWebIdentity"
+      ),
+    });
+
+    authenticatedRole.addToPolicy(
+      new cdk.aws_iam.PolicyStatement({
+        effect: cdk.aws_iam.Effect.ALLOW,
+        actions: ["s3:ListAllMyBuckets"],
+        resources: ["*"],
+      })
+    );
+
+    new cognito.CfnIdentityPoolRoleAttachment(
+      this,
+      "IdentityPoolRoleAttachment",
+      {
+        identityPoolId: identityPool.ref,
+        roles: {
+          authenticated: authenticatedRole.roleArn,
+        },
+      }
+    );
+
+    this.userPool = userPool;
+    this.identityPool = identityPool;
+
     new cdk.CfnOutput(this, "UserPoolId", {
       value: userPool.userPoolId,
     });
@@ -64,6 +114,9 @@ export class AuthStack extends cdk.Stack {
     });
     new cdk.CfnOutput(this, "CognitoDomain", {
       value: domain.domainName,
+    });
+    new cdk.CfnOutput(this, "IdentityPoolId", {
+      value: identityPool.ref,
     });
   }
 }

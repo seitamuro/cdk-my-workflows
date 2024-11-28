@@ -62,13 +62,8 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ isOpen, onClose }) => {
               </Link>
             </li>
             <li style={styles.menuItem} className="menu-item">
-              <Link to="/signin" style={styles.link} onClick={onClose}>
-                Sign In
-              </Link>
-            </li>
-            <li style={styles.menuItem} className="menu-item">
-              <Link to="/signup" style={styles.link} onClick={onClose}>
-                Sign Up
+              <Link to="/bucket-list" style={styles.link} onClick={onClose}>
+                S3 Bucket List
               </Link>
             </li>
           </ul>

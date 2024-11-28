@@ -22,6 +22,7 @@ export const HomePage = () => {
             <p>ログイン中</p>
             <p>userId: {auth.userId}</p>
             <p>Authorization: {auth.authorization}</p>
+
           </>
         ) : (
           <p>未ログイン</p>
