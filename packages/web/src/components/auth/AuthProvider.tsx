@@ -1,3 +1,4 @@
+import { AuthContext } from '@/hooks/useMyAuth';
 import {
   AuthSession,
   fetchAuthSession,
@@ -5,7 +6,6 @@ import {
   GetCurrentUserOutput,
 } from "@aws-amplify/auth";
 import { ReactNode, useEffect, useState } from 'react';
-import { AuthContext } from '../../hooks/useMyAuth';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

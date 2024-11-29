@@ -1,6 +1,6 @@
+import { SignInButton } from "@/components/auth/SignInButton";
+import { SignUpWithGoogleButton } from "@/components/auth/SignUpWithGoogleButton";
 import { useState } from "react";
-import { SignInButton } from "../components/auth/SignInButton";
-import { SignUpWithGoogleButton } from "../components/auth/SignUpWithGoogleButton";
 
 const styles = {
   errorMessage: {

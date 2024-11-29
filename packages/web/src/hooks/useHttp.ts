@@ -1,6 +1,5 @@
 import { fetchAuthSession } from "@aws-amplify/auth";
 import axios from "axios";
-import {} from "react-oidc-context";
 import useSWR, { SWRConfiguration } from "swr";
 
 const api = axios.create({

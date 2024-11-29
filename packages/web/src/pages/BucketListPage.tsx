@@ -1,5 +1,5 @@
+import { useHttp } from "@/hooks/useHttp";
 import { useEffect, useState } from "react";
-import { useHttp } from "../hooks/useHttp";
 
 export const BucketListPage = () => {
   const [buckets, setBuckets] = useState<string[]>([]);

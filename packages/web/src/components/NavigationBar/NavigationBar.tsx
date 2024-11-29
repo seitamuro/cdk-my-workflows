@@ -1,8 +1,8 @@
+import { SideDrawer } from '@/components/SideDrawer';
+import { useMyAuth } from '@/hooks/useMyAuth';
 import { Menu } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMyAuth } from '../../hooks/useMyAuth';
-import { SideDrawer } from '../SideDrawer';
 import "./NavigationBar.css";
 
 const styles = {

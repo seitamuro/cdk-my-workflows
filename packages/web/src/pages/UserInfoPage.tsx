@@ -1,4 +1,4 @@
-import { useMyAuth } from "../hooks/useMyAuth";
+import { useMyAuth } from "@/hooks/useMyAuth";
 
 export const UserInfoPage = () => {
   const { isAuthenticated, userId, currentUser, authSession } = useMyAuth();

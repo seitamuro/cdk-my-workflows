@@ -1,7 +1,7 @@
+import { useMyAuth } from "@/hooks/useMyAuth";
 import * as Auth from "@aws-amplify/auth";
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useMyAuth } from "../../hooks/useMyAuth";
 
 type CognitoPayload = {
   'cognito:identity_provider'?: string | string[];
