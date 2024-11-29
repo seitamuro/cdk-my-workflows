@@ -1,18 +1,7 @@
 import * as Auth from "@aws-amplify/auth";
-import { Amplify } from 'aws-amplify';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useMyAuth } from "../../hooks/useMyAuth";
-
-// AWS設定の初期化
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolId: import.meta.env.VITE_USER_POOL_ID || "",
-      userPoolClientId: import.meta.env.VITE_USER_POOL_CLIENT_ID || "",
-    }
-  }
-});
 
 export const SignOutButton: React.FC = () => {
   const navigate = useNavigate();
