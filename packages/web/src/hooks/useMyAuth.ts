@@ -1,40 +1,21 @@
-import {
-  AuthSession,
-  fetchAuthSession,
-  getCurrentUser,
-  GetCurrentUserOutput,
-} from "@aws-amplify/auth";
-import { useEffect, useState } from "react";
+import { AuthSession, GetCurrentUserOutput } from "@aws-amplify/auth";
+import { createContext, useContext } from "react";
+
+export interface AuthContextType {
+  isAuthenticated: boolean;
+  userId: string | null;
+  authorization: string | null;
+  currentUser: GetCurrentUserOutput | null;
+  authSession: AuthSession | null;
+  refetch: () => Promise<void>;
+}
+
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useMyAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
-  const [authorization, setAuthorization] = useState<string | null>(null);
-  const [currentUser, setCurrentUser] = useState<GetCurrentUserOutput | null>(
-    null
-  );
-  const [authSession, setAuthSession] = useState<AuthSession | null>(null);
-
-  useEffect(() => {
-    getCurrentUser().then((data) => {
-      setIsAuthenticated(true);
-      setUserId(data?.userId || null);
-      setCurrentUser(data);
-    });
-
-    fetchAuthSession().then((data) => {
-      setAuthSession(data);
-      if (data.tokens?.idToken) {
-        setAuthorization(data.tokens?.idToken?.toString());
-      }
-    });
-  }, []);
-
-  return {
-    isAuthenticated,
-    userId,
-    authorization,
-    currentUser,
-    authSession,
-  };
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useMyAuth must be used within an AuthProvider");
+  }
+  return context;
 };

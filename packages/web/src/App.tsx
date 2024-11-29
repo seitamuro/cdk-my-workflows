@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import { AuthProvider } from './components/auth/AuthProvider'
 import { NavigationBar } from './components/NavigationBar'
 import { BucketListPage } from './pages/BucketListPage'
 import { HomePage } from './pages/HomePage'
@@ -10,7 +11,7 @@ import { UserInfoPage } from './pages/UserInfoPage'
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <NavigationBar />
       <Routes>
         <Route path="/signin" element={<SignInPage />} />
@@ -20,7 +21,7 @@ function App() {
         <Route path="/user-info" element={<UserInfoPage />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
-    </>
+    </AuthProvider>
   )
 }
 

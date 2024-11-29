@@ -1,6 +1,8 @@
 import * as Auth from "@aws-amplify/auth";
 import { Amplify } from 'aws-amplify';
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useMyAuth } from "../../hooks/useMyAuth";
 
 // AWS設定の初期化
 Amplify.configure({
@@ -18,22 +20,40 @@ type Props = {
 };
 
 export const SignInButton: React.FC<Props> = ({ username, password }) => {
-  const handleSignIn = () => {
-    // Cognitoでユーザー登録
-    console.log("username: ", username)
-    Auth.signIn({
-      username,
-      password,
-    }).then((data) => {
+  const navigate = useNavigate();
+  const { refetch } = useMyAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+    try {
+      const data = await Auth.signIn({
+        username,
+        password,
+      });
       console.log(data);
-    }).catch((err) => {
+
+      // 認証状態を更新
+      await refetch();
+
+      // 少し待ってから遷移
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate("/");
+      }, 500);
+    } catch (err) {
       console.error(err);
-    })
+      setIsLoading(false);
+    }
   };
 
   return (
     <div>
-      <button onClick={handleSignIn}>サインイン</button>
+      <button disabled={isLoading} onClick={handleSignIn}>
+        {isLoading ? "サインイン中..." : "サインイン"}
+      </button>
     </div>
   );
 };

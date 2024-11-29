@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   const [count, setCount] = useState(0);
-  //const auth = useMyAuth();
 
   return (
     <div>
