@@ -8,13 +8,24 @@
     "web:dev": "pnpm run --filter web dev",
     "web:devw": "source setup-env.sh && pnpm run --filter web dev",
     "cdk:deploy": "source google-secrets.sh && pnpm run --filter cdk cdk deploy --all",
-    "cdk:hotswap:api": "source google-secrets.sh && pnpm run --filter cdk cdk deploy ApiStack --hotswap"
+    "cdk:hotswap:api": "source google-secrets.sh && pnpm run --filter cdk cdk deploy ApiStack --hotswap",
+    "prepare": "husky"
   },
   "packageManager": "pnpm@7.19.0",
   "engines": {
     "pnpm": ">=7.19.0"
   },
+  "lint-staged": {
+    "packages/web/**/*.{ts,tsx}": [
+      "pnpm run --filter web lint:fix",
+      "pnpm run --filter web format"
+    ]
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10"
+  }
 }
