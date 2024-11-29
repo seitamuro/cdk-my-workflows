@@ -1,6 +1,6 @@
-import { SignUpButton } from "@/components/auth/SignUpButton";
-import { SignUpWithGoogleButton } from "@/components/auth/SignUpWithGoogleButton";
-import { useState } from "react";
+import { SignUpButton } from '@/components/auth/SignUpButton';
+import { SignUpWithGoogleButton } from '@/components/auth/SignUpWithGoogleButton';
+import { useState } from 'react';
 
 const styles = {
   errorMessage: {
@@ -9,8 +9,8 @@ const styles = {
     padding: '0.5rem',
     fontSize: '0.875rem',
     fontWeight: 'bold',
-    minHeight: '1.5rem'
-  }
+    minHeight: '1.5rem',
+  },
 };
 
 export const SignUpPage = () => {
@@ -30,5 +30,5 @@ export const SignUpPage = () => {
       <SignUpButton username={username} password={password} setErrorMessage={setErrorMessage} />
       <SignUpWithGoogleButton />
     </>
-  )
-}
+  );
+};

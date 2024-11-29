@@ -4,7 +4,7 @@ import {
   fetchAuthSession,
   getCurrentUser,
   GetCurrentUserOutput,
-} from "@aws-amplify/auth";
+} from '@aws-amplify/auth';
 import { ReactNode, useEffect, useState } from 'react';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {

@@ -1,6 +1,6 @@
-import { fetchAuthSession } from "@aws-amplify/auth";
-import axios from "axios";
-import useSWR, { SWRConfiguration } from "swr";
+import { fetchAuthSession } from '@aws-amplify/auth';
+import axios from 'axios';
+import useSWR, { SWRConfiguration } from 'swr';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
@@ -22,7 +22,7 @@ api.interceptors.request.use(async (config) => {
     }
   }
 
-  config.headers["Content-Type"] = "application/json";
+  config.headers['Content-Type'] = 'application/json';
 
   return config;
 });
@@ -35,10 +35,7 @@ export const useHttp = () => {
   return {
     api,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    get: <Data = any, Error = any>(
-      url: string | null,
-      config?: SWRConfiguration
-    ) => {
+    get: <Data = any, Error = any>(url: string | null, config?: SWRConfiguration) => {
       // eslint-disable-next-line
       return useSWR<Data, Error>(url, fetcher, config);
     },

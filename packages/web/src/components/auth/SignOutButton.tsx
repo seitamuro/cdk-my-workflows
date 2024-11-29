@@ -1,7 +1,7 @@
-import { useMyAuth } from "@/hooks/useMyAuth";
-import * as Auth from "@aws-amplify/auth";
+import { useMyAuth } from '@/hooks/useMyAuth';
+import * as Auth from '@aws-amplify/auth';
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 type CognitoPayload = {
   'cognito:identity_provider'?: string | string[];
@@ -14,27 +14,27 @@ type SignOutButtonProps = {
 
 export const SignOutButton: React.FC<SignOutButtonProps> = ({
   provider = 'default',
-  buttonText
+  buttonText,
 }) => {
   const navigate = useNavigate();
   const { refetch, authSession, currentUser } = useMyAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   // Googleプロバイダの判定
-  const isGoogleProvider =
-    Array.isArray(
-      (authSession?.tokens?.accessToken?.payload as CognitoPayload)?.['cognito:identity_provider']
-    )
-      ? (authSession?.tokens?.accessToken?.payload as CognitoPayload)?.['cognito:identity_provider']?.includes('Google')
-      : (authSession?.tokens?.accessToken?.payload as CognitoPayload)?.['cognito:identity_provider'] === 'Google' ||
-      currentUser?.username?.toString().includes('Google_');
+  const isGoogleProvider = Array.isArray(
+    (authSession?.tokens?.accessToken?.payload as CognitoPayload)?.['cognito:identity_provider']
+  )
+    ? (authSession?.tokens?.accessToken?.payload as CognitoPayload)?.[
+        'cognito:identity_provider'
+      ]?.includes('Google')
+    : (authSession?.tokens?.accessToken?.payload as CognitoPayload)?.[
+        'cognito:identity_provider'
+      ] === 'Google' || currentUser?.username?.toString().includes('Google_');
 
   // プロバイダに基づいたボタンテキストの設定
-  const buttonLabel = buttonText || (
-    provider === 'google' || isGoogleProvider
-      ? 'Sign out with Google'
-      : 'サインアウト'
-  );
+  const buttonLabel =
+    buttonText ||
+    (provider === 'google' || isGoogleProvider ? 'Sign out with Google' : 'サインアウト');
 
   const handleSignOut = async () => {
     if (isLoading) return;
@@ -58,7 +58,7 @@ export const SignOutButton: React.FC<SignOutButtonProps> = ({
       // 少し待ってから遷移
       setTimeout(() => {
         setIsLoading(false);
-        navigate("/");
+        navigate('/');
       }, 500);
     } catch (err) {
       console.error(err);
@@ -68,7 +68,7 @@ export const SignOutButton: React.FC<SignOutButtonProps> = ({
 
   return (
     <button disabled={isLoading} onClick={handleSignOut}>
-      {isLoading ? "サインアウト中..." : buttonLabel}
+      {isLoading ? 'サインアウト中...' : buttonLabel}
     </button>
   );
 };

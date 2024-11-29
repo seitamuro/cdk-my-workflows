@@ -1,4 +1,4 @@
-import { signInWithRedirect } from "aws-amplify/auth";
+import { signInWithRedirect } from 'aws-amplify/auth';
 
 export const SignUpWithGoogleButton: React.FC = () => {
   const handleSignIn = async () => {
@@ -11,7 +11,5 @@ export const SignUpWithGoogleButton: React.FC = () => {
     }
   };
 
-  return (
-    <button onClick={handleSignIn}>Sign in with Google</button>
-  );
+  return <button onClick={handleSignIn}>Sign in with Google</button>;
 };

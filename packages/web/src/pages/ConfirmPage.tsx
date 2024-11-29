@@ -1,10 +1,10 @@
-import * as Auth from "@aws-amplify/auth";
-import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import * as Auth from '@aws-amplify/auth';
+import { useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 export const ConfirmPage = () => {
-  const [searchParams] = useSearchParams()
-  const username = searchParams.get('username') || "";
+  const [searchParams] = useSearchParams();
+  const username = searchParams.get('username') || '';
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +30,7 @@ export const ConfirmPage = () => {
       setSuccess('確認が完了しました。5秒後にHomeページへ遷移します。');
 
       setTimeout(() => {
-        navigate("/")
+        navigate('/');
       }, 5000);
     } catch (err) {
       if (setError) {
@@ -60,7 +60,7 @@ export const ConfirmPage = () => {
   return (
     <div>
       <h1>アカウント確認</h1>
-      {username ?
+      {username ? (
         <div>
           <h2>確認コード入力</h2>
           {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -77,11 +77,18 @@ export const ConfirmPage = () => {
             />
           </div>
 
-          <button onClick={handleConfirmSignUp} disabled={isLoading}>確認</button>
-          <button onClick={handleResendCode} disabled={isLoading}>確認コードを再送信</button>
+          <button onClick={handleConfirmSignUp} disabled={isLoading}>
+            確認
+          </button>
+          <button onClick={handleResendCode} disabled={isLoading}>
+            確認コードを再送信
+          </button>
         </div>
-        : <p>usernameが指定されていません。<Link to="/signup">サインアップ</Link>からやり直してください</p>
-      }
+      ) : (
+        <p>
+          usernameが指定されていません。<Link to="/signup">サインアップ</Link>からやり直してください
+        </p>
+      )}
     </div>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { SignOutButton } from "@/components/auth/SignOutButton"
+import { SignOutButton } from '@/components/auth/SignOutButton';
 
 export const SignOutPage = () => {
   return (
@@ -6,5 +6,5 @@ export const SignOutPage = () => {
       <h1>Sign Out</h1>
       <SignOutButton />
     </div>
-  )
-}
+  );
+};

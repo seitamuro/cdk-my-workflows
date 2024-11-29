@@ -28,7 +28,7 @@ const styles = {
     bottom: 0,
     backgroundColor: 'rgba(0,0,0,0.5)',
     opacity: isOpen ? 1 : 0,
-    visibility: isOpen ? 'visible' as const : 'hidden' as const,
+    visibility: isOpen ? ('visible' as const) : ('hidden' as const),
     transition: 'opacity 0.3s ease-in-out',
     zIndex: 999,
   }),

@@ -1,4 +1,4 @@
-import { Amplify } from "aws-amplify";
+import { Amplify } from 'aws-amplify';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
@@ -13,19 +13,17 @@ Amplify.configure({
       identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID,
       loginWith: {
         oauth: {
-          domain: "my-workflows-seimiura.auth.us-east-1.amazoncognito.com",
+          domain: 'my-workflows-seimiura.auth.us-east-1.amazoncognito.com',
           scopes: ['openid', 'email', 'profile'],
           // redirect urlはauth-stack.tsとgoogle認証で設定したものにする必要がある
           redirectSignIn: ['http://localhost:5173'],
           redirectSignOut: ['http://localhost:5173'],
           responseType: 'code',
-          providers: [
-            "Google"
-          ],
-        }
-      }
+          providers: ['Google'],
+        },
+      },
     },
-  }
+  },
 });
 
 createRoot(document.getElementById('root')!).render(
@@ -33,5 +31,5 @@ createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <App />
     </StrictMode>
-  </BrowserRouter>,
-)
+  </BrowserRouter>
+);

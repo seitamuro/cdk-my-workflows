@@ -1,5 +1,5 @@
-import { AuthSession, GetCurrentUserOutput } from "@aws-amplify/auth";
-import { createContext, useContext } from "react";
+import { AuthSession, GetCurrentUserOutput } from '@aws-amplify/auth';
+import { createContext, useContext } from 'react';
 
 export interface AuthContextType {
   isAuthenticated: boolean;
@@ -15,7 +15,7 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 export const useMyAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useMyAuth must be used within an AuthProvider");
+    throw new Error('useMyAuth must be used within an AuthProvider');
   }
   return context;
 };

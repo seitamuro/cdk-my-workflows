@@ -1,7 +1,7 @@
-import { useMyAuth } from "@/hooks/useMyAuth";
-import * as Auth from "@aws-amplify/auth";
+import { useMyAuth } from '@/hooks/useMyAuth';
+import * as Auth from '@aws-amplify/auth';
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   username: string;
@@ -17,12 +17,12 @@ export const SignInButton: React.FC<Props> = ({ username, password, setErrorMess
   const handleSignIn = async () => {
     if (setErrorMessage) {
       if (username.length === 0) {
-        setErrorMessage("usernameを入力してください");
+        setErrorMessage('usernameを入力してください');
         return;
       }
 
       if (password.length === 0) {
-        setErrorMessage("passwordを入力してください");
+        setErrorMessage('passwordを入力してください');
         return;
       }
     }
@@ -41,12 +41,12 @@ export const SignInButton: React.FC<Props> = ({ username, password, setErrorMess
       // 少し待ってから遷移
       setTimeout(() => {
         setIsLoading(false);
-        navigate("/");
+        navigate('/');
       }, 500);
     } catch (err) {
       console.error(err);
       if (setErrorMessage) {
-        setErrorMessage("サインインに失敗しました");
+        setErrorMessage('サインインに失敗しました');
       }
       setIsLoading(false);
     }
@@ -55,7 +55,7 @@ export const SignInButton: React.FC<Props> = ({ username, password, setErrorMess
   return (
     <div>
       <button disabled={isLoading} onClick={handleSignIn}>
-        {isLoading ? "サインイン中..." : "サインイン"}
+        {isLoading ? 'サインイン中...' : 'サインイン'}
       </button>
     </div>
   );

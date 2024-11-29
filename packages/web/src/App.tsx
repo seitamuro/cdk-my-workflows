@@ -1,14 +1,14 @@
-import { AuthProvider } from '@/components/auth/AuthProvider'
-import { NavigationBar } from '@/components/NavigationBar'
-import { BucketListPage } from '@/pages/BucketListPage'
-import { ConfirmPage } from '@/pages/ConfirmPage'
-import { HomePage } from '@/pages/HomePage'
-import { SignInPage } from '@/pages/SignInPage'
-import { SignOutPage } from '@/pages/SignOutPage'
-import { SignUpPage } from '@/pages/SignUpPage'
-import { UserInfoPage } from '@/pages/UserInfoPage'
-import { Route, Routes } from 'react-router-dom'
-import './App.css'
+import { AuthProvider } from '@/components/auth/AuthProvider';
+import { NavigationBar } from '@/components/NavigationBar';
+import { BucketListPage } from '@/pages/BucketListPage';
+import { ConfirmPage } from '@/pages/ConfirmPage';
+import { HomePage } from '@/pages/HomePage';
+import { SignInPage } from '@/pages/SignInPage';
+import { SignOutPage } from '@/pages/SignOutPage';
+import { SignUpPage } from '@/pages/SignUpPage';
+import { UserInfoPage } from '@/pages/UserInfoPage';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
       </Routes>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

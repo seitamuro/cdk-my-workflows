@@ -3,7 +3,7 @@ import { useMyAuth } from '@/hooks/useMyAuth';
 import { Menu } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import "./NavigationBar.css";
+import './NavigationBar.css';
 
 const styles = {
   navbar: {
@@ -38,7 +38,7 @@ const styles = {
     border: 'none',
     padding: '0',
     cursor: 'pointer',
-    margin: "0rem 1rem",
+    margin: '0rem 1rem',
     display: 'flex',
     flexDirection: 'column' as const,
     justifyContent: 'space-between',
@@ -48,7 +48,7 @@ const styles = {
   },
   signInButton: {
     padding: '0.5rem 1rem',
-    margin: "0rem 1rem",
+    margin: '0rem 1rem',
     backgroundColor: '#007bff',
     color: 'white',
     border: 'none',
@@ -75,16 +75,30 @@ export const NavigationBar: React.FC = () => {
     <>
       <nav style={styles.navbar}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button onClick={toggleDrawer} style={styles.menuButton} >
+          <button onClick={toggleDrawer} style={styles.menuButton}>
             <Menu style={{ color: '#333' }} />
           </button>
-          <Link to="/"><h1 style={styles.appName}>My Workflows</h1></Link>
+          <Link to="/">
+            <h1 style={styles.appName}>My Workflows</h1>
+          </Link>
         </div>
         <div style={styles.authSection}>
           {isAuthenticated ? (
-            <button className={"hover"} onClick={() => navigate("/signout")} style={styles.signInButton}>Sign Out</button>
+            <button
+              className={'hover'}
+              onClick={() => navigate('/signout')}
+              style={styles.signInButton}
+            >
+              Sign Out
+            </button>
           ) : (
-            <button className={"hover"} onClick={() => navigate('/signin')} style={styles.signInButton}>Sign In</button>
+            <button
+              className={'hover'}
+              onClick={() => navigate('/signin')}
+              style={styles.signInButton}
+            >
+              Sign In
+            </button>
           )}
         </div>
       </nav>
