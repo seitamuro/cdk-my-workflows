@@ -49,6 +49,7 @@ export class AuthStack extends cdk.Stack {
           cognito.OAuthScope.PROFILE,
         ],
         callbackUrls: ["http://localhost:5173"],
+        logoutUrls: ["http://localhost:5173"],
       },
     });
     userPoolClient.node.addDependency(googleProvider);
