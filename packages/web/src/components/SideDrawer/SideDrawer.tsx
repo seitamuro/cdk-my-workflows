@@ -66,6 +66,11 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ isOpen, onClose }) => {
                 S3 Bucket List
               </Link>
             </li>
+            <li style={styles.menuItem} className="menu-item">
+              <Link to="/user-info" style={styles.link} onClick={onClose}>
+                User Info
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
