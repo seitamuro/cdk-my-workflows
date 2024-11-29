@@ -48,6 +48,7 @@ export class AuthStack extends cdk.Stack {
           cognito.OAuthScope.OPENID,
           cognito.OAuthScope.PROFILE,
         ],
+        // ここはgoogleProviderに設定したURLと同じにする必要がある
         callbackUrls: ["http://localhost:5173"],
         logoutUrls: ["http://localhost:5173"],
       },
