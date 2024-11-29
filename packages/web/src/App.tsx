@@ -3,6 +3,7 @@ import './App.css'
 import { AuthProvider } from './components/auth/AuthProvider'
 import { NavigationBar } from './components/NavigationBar'
 import { BucketListPage } from './pages/BucketListPage'
+import { ConfirmPage } from './pages/ConfirmPage'
 import { HomePage } from './pages/HomePage'
 import { SignInPage } from './pages/SignInPage'
 import { SignOutPage } from './pages/SignOutPage'
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signout" element={<SignOutPage />} />
         <Route path="/bucket-list" element={<BucketListPage />} />
         <Route path="/user-info" element={<UserInfoPage />} />
+        <Route path="/confirm" element={<ConfirmPage />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </AuthProvider>

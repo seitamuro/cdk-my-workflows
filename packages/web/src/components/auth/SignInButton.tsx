@@ -6,23 +6,34 @@ import { useMyAuth } from "../../hooks/useMyAuth";
 type Props = {
   username: string;
   password: string;
+  setErrorMessage?: (message: string) => void;
 };
 
-export const SignInButton: React.FC<Props> = ({ username, password }) => {
+export const SignInButton: React.FC<Props> = ({ username, password, setErrorMessage }) => {
   const navigate = useNavigate();
   const { refetch } = useMyAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
+    if (setErrorMessage) {
+      if (username.length === 0) {
+        setErrorMessage("usernameを入力してください");
+        return;
+      }
+
+      if (password.length === 0) {
+        setErrorMessage("passwordを入力してください");
+        return;
+      }
+    }
     if (isLoading) return;
 
     setIsLoading(true);
     try {
-      const data = await Auth.signIn({
+      await Auth.signIn({
         username,
         password,
       });
-      console.log(data);
 
       // 認証状態を更新
       await refetch();
@@ -34,6 +45,9 @@ export const SignInButton: React.FC<Props> = ({ username, password }) => {
       }, 500);
     } catch (err) {
       console.error(err);
+      if (setErrorMessage) {
+        setErrorMessage("サインインに失敗しました");
+      }
       setIsLoading(false);
     }
   };
