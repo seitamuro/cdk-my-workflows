@@ -1,9 +1,14 @@
+import { signOut } from "aws-amplify/auth";
+
 export const SignOutWithGoogleButton: React.FC = () => {
-  const signOutRedirect = () => {
-    const clientId = import.meta.env.VITE_USER_POOL_CLIENT_ID
-    const logoutUri = "";
-    const cognitoDomain = "https://my-workflows-seimiura.auth.us-east-1.amazoncognito.com";
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}&redirect_uri=${encodeURIComponent("http://localhost:5173")}&response_type=code`;
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      window.location.href = '/';
+    } catch (error) {
+      console.error('エラー:', error);
+    }
   };
-  return <button onClick={signOutRedirect}>Sign out with Google</button>;
-}
+
+  return <button onClick={handleSignOut}>Sign out with Google</button>;
+};

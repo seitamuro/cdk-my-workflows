@@ -1,24 +1,36 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { AuthProvider } from "react-oidc-context"
-import { BrowserRouter } from 'react-router-dom'
-import App from './App.tsx'
-import './index.css'
+import { Amplify } from "aws-amplify";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App.tsx';
+import './index.css';
 
-const cognitoAuthConfig = {
-  authority: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_4XHM2tRMa",
-  client_id: "48pqp6j6uvkuha14i96n9ng28m",
-  redirect_uri: "http://localhost:5173",
-  response_type: "code",
-  scope: "email openid profile",
-};
+Amplify.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: import.meta.env.VITE_USER_POOL_ID,
+      userPoolClientId: import.meta.env.VITE_USER_POOL_CLIENT_ID,
+      identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID,
+      loginWith: {
+        oauth: {
+          domain: "my-workflows-seimiura.auth.us-east-1.amazoncognito.com",
+          scopes: ['openid', 'email', 'profile'],
+          redirectSignIn: ['http://localhost:5173/'],
+          redirectSignOut: ['http://localhost:5173/'],
+          responseType: 'code',
+          providers: [
+            "Google"
+          ],
+        }
+      }
+    },
+  }
+});
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <StrictMode>
-      <AuthProvider {...cognitoAuthConfig}>
-        <App />
-      </AuthProvider>
+      <App />
     </StrictMode>
   </BrowserRouter>,
 )

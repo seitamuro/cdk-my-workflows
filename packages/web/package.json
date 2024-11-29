@@ -12,6 +12,7 @@
   "dependencies": {
     "@aws-amplify/auth": "^6.8.0",
     "@aws-sdk/client-cognito-identity": "^3.699.0",
+    "@aws-sdk/client-sts": "^3.699.0",
     "@aws-sdk/credential-providers": "^3.699.0",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
@@ -19,10 +20,8 @@
     "@mui/material": "^6.1.9",
     "aws-amplify": "^6.10.0",
     "axios": "^1.7.8",
-    "oidc-client-ts": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-oidc-context": "^3.2.0",
     "react-router-dom": "^7.0.1",
     "swr": "^2.2.5"
   },

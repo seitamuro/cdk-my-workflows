@@ -4,31 +4,37 @@ import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-id
 import { APIGatewayProxyEvent } from "aws-lambda";
 
 export const handler = async (event: APIGatewayProxyEvent) => {
-  try {
-    // Authorization headerからJWTトークンを取得
-    const token = event.headers.Authorization;
-    if (!token) {
-      return {
-        statusCode: 401,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          message: "No authorization token provided",
-        }),
-      };
-    }
+  const token = event.headers.Authorization || "";
+  const credentialProvider = fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({}),
+    identityPoolId: process.env.IDENTITY_POOL_ID || "",
+    logins: {
+      [`cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.USER_POOL_ID}`]:
+        token,
+    },
+  });
 
-    const s3Client = new S3Client({
-      credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({}),
-        identityPoolId: process.env.IDENTITY_POOL_ID || "",
-        logins: {
-          [`cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.USER_POOL_ID}`]:
-            token,
-        },
+  const credentials = await credentialProvider()
+    .then((data) => data)
+    .catch(() => null);
+
+  if (!credentials) {
+    console.error("No authorization token provided");
+    return {
+      statusCode: 401,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        message: "No authorization token provided",
       }),
+    };
+  }
+
+  try {
+    const s3Client = new S3Client({
+      credentials: credentials,
     });
 
     const buckets = await s3Client.send(new ListBucketsCommand({}));
@@ -52,8 +58,7 @@ export const handler = async (event: APIGatewayProxyEvent) => {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        message: "Internal server error",
-        error: error instanceof Error ? error.message : "Unknown error",
+        message: "Failed to get bucket list",
       }),
     };
   }

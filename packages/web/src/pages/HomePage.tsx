@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useMyAuth } from "../hooks/useMyAuth";
 
 export const HomePage = () => {
   const [count, setCount] = useState(0);
-  const auth = useMyAuth();
+  //const auth = useMyAuth();
 
   return (
     <div>
@@ -15,19 +14,6 @@ export const HomePage = () => {
       <button onClick={() => setCount(prev => prev - 1)}>-</button>
       <span>{count}</span>
       <button onClick={() => setCount(prev => prev + 1)}>+</button>
-
-      <div>
-        {auth.isAuthenticated ? (
-          <>
-            <p>ログイン中</p>
-            <p>userId: {auth.userId}</p>
-            <p>Authorization: {auth.authorization}</p>
-
-          </>
-        ) : (
-          <p>未ログイン</p>
-        )}
-      </div>
     </div>
   );
 }

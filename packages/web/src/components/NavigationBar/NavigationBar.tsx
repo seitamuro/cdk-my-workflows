@@ -2,7 +2,6 @@ import { Menu } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMyAuth } from '../../hooks/useMyAuth';
-import { SignOutButton } from '../auth/SignOutButton';
 import { SideDrawer } from '../SideDrawer';
 import "./NavigationBar.css";
 
@@ -65,7 +64,7 @@ const styles = {
 
 export const NavigationBar: React.FC = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, userId } = useMyAuth();
+  const { isAuthenticated } = useMyAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -83,10 +82,7 @@ export const NavigationBar: React.FC = () => {
         </div>
         <div style={styles.authSection}>
           {isAuthenticated ? (
-            <>
-              <span style={styles.userInfo}>User ID: {userId}</span>
-              <SignOutButton />
-            </>
+            <button className={"hover"} onClick={() => navigate("/signout")} style={styles.signInButton}>Sign Out</button>
           ) : (
             <button className={"hover"} onClick={() => navigate('/signin')} style={styles.signInButton}>Sign In</button>
           )}

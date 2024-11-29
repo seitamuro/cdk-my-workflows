@@ -1,9 +1,17 @@
-import { useAuth } from "react-oidc-context";
+import { signInWithRedirect } from "aws-amplify/auth";
 
-export const SignUpWithGoogleButton = () => {
-  const auth = useAuth();
+export const SignUpWithGoogleButton: React.FC = () => {
+  const handleSignIn = async () => {
+    try {
+      await signInWithRedirect({
+        provider: 'Google'
+      });
+    } catch (error) {
+      console.error('エラー:', error);
+    }
+  };
 
   return (
-    <button onClick={() => auth.signinRedirect()}>Sign in with Google</button>
+    <button onClick={handleSignIn}>Sign in with Google</button>
   );
 };
