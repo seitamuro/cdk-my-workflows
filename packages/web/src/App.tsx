@@ -7,7 +7,7 @@ import { SignInPage } from '@/pages/SignInPage';
 import { SignOutPage } from '@/pages/SignOutPage';
 import { SignUpPage } from '@/pages/SignUpPage';
 import { UserInfoPage } from '@/pages/UserInfoPage';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 import './App.css';
 
 function App() {
