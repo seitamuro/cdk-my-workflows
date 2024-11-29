@@ -15,8 +15,8 @@ Amplify.configure({
         oauth: {
           domain: "my-workflows-seimiura.auth.us-east-1.amazoncognito.com",
           scopes: ['openid', 'email', 'profile'],
-          redirectSignIn: ['http://localhost:5173/'],
-          redirectSignOut: ['http://localhost:5173/'],
+          redirectSignIn: ['http://localhost:5173'],
+          redirectSignOut: ['http://localhost:5173/logout'], // /logoutにしないとエラーページに飛ばされる
           responseType: 'code',
           providers: [
             "Google"

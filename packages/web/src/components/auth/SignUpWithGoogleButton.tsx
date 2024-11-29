@@ -4,7 +4,7 @@ export const SignUpWithGoogleButton: React.FC = () => {
   const handleSignIn = async () => {
     try {
       await signInWithRedirect({
-        provider: 'Google'
+        provider: 'Google',
       });
     } catch (error) {
       console.error('エラー:', error);
