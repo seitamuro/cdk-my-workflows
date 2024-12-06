@@ -7,6 +7,8 @@
     "web:build": "pnpm run --filter web build",
     "web:dev": "pnpm run --filter web dev",
     "web:devw": "source setup-env.sh && pnpm run --filter web dev",
+    "api:local": "pnpm run --filter cdk local-server",
+    "web:local": "source setup-env.sh && VITE_API_ENDPOINT=http://localhost:8080 pnpm run --filter web dev",
     "cdk:deploy": "source google-secrets.sh && pnpm run --filter cdk cdk deploy --all",
     "cdk:hotswap:api": "source google-secrets.sh && pnpm run --filter cdk cdk deploy ApiStack --hotswap",
     "prepare": "husky",
