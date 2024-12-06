@@ -67,6 +67,11 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ isOpen, onClose }) => {
               </Link>
             </li>
             <li style={styles.menuItem} className="menu-item">
+              <Link to="/s3-upload" style={styles.link} onClick={onClose}>
+                S3 Upload
+              </Link>
+            </li>
+            <li style={styles.menuItem} className="menu-item">
               <Link to="/user-info" style={styles.link} onClick={onClose}>
                 User Info
               </Link>
