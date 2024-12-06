@@ -4,6 +4,7 @@ import { Construct } from "constructs";
 
 export class AuthStack extends cdk.Stack {
   userPool: cognito.UserPool;
+  userPoolClient: cognito.UserPoolClient;
   identityPool: cognito.CfnIdentityPool;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -39,6 +40,7 @@ export class AuthStack extends cdk.Stack {
       supportedIdentityProviders: [
         cognito.UserPoolClientIdentityProvider.GOOGLE,
       ],
+      authFlows: { userSrp: true },
       oAuth: {
         flows: {
           authorizationCodeGrant: true,
@@ -106,6 +108,7 @@ export class AuthStack extends cdk.Stack {
     );
 
     this.userPool = userPool;
+    this.userPoolClient = userPoolClient;
     this.identityPool = identityPool;
 
     new cdk.CfnOutput(this, "UserPoolId", {

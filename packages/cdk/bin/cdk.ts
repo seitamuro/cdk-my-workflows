@@ -8,5 +8,6 @@ const app = new cdk.App();
 const auth = new AuthStack(app, "AuthStack");
 new ApiStack(app, "ApiStack", {
   userPool: auth.userPool,
+  userPoolClient: auth.userPoolClient,
   identityPool: auth.identityPool,
 });

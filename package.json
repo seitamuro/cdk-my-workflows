@@ -9,7 +9,8 @@
     "web:devw": "source setup-env.sh && pnpm run --filter web dev",
     "cdk:deploy": "source google-secrets.sh && pnpm run --filter cdk cdk deploy --all",
     "cdk:hotswap:api": "source google-secrets.sh && pnpm run --filter cdk cdk deploy ApiStack --hotswap",
-    "prepare": "husky"
+    "prepare": "husky",
+    "cdk:destroy": "source google-secrets.sh && pnpm run --filter cdk cdk destroy --all"
   },
   "packageManager": "pnpm@7.19.0",
   "engines": {
