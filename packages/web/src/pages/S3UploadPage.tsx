@@ -83,7 +83,9 @@ export const S3UploadPage = () => {
               </li>
             ))}
           </ul>
-          <button onClick={() => uploadFile('http://localhost:8080/s3-upload', files[0])}>
+          <button
+            onClick={() => uploadFile(`${import.meta.env.VITE_API_ENDPOINT}/s3-upload`, files[0])}
+          >
             アップロード
           </button>
         </div>
