@@ -1,3 +1,5 @@
+import { fetchAuthSession } from '@aws-amplify/auth';
+import axios from 'axios';
 import { CSSProperties, useState } from 'react';
 
 const styles: Record<string, CSSProperties> = {
@@ -44,6 +46,21 @@ export const S3UploadPage = () => {
     setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
   };
 
+  const uploadFile = async (url: string, file: File) => {
+    const formData = new FormData();
+    const idToken = (await fetchAuthSession()).tokens?.idToken?.toString();
+
+    formData.append('file', file);
+    const res = await axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: idToken,
+      },
+    });
+
+    console.log(res);
+  };
+
   return (
     <div
       style={styles.container}
@@ -66,6 +83,9 @@ export const S3UploadPage = () => {
               </li>
             ))}
           </ul>
+          <button onClick={() => uploadFile('http://localhost:8080/s3-upload', files[0])}>
+            アップロード
+          </button>
         </div>
       )}
     </div>

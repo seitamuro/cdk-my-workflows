@@ -7,3 +7,4 @@ function extract_value {
 export USER_POOL_ID=$(extract_value "AuthStack" "UserPoolId")
 export USER_POOL_CLIENT_ID=$(extract_value "AuthStack" "UserPoolClientId")
 export IDENTITY_POOL_ID=$(extract_value "AuthStack" "IdentityPoolId")
+export BUCKET_NAME=$(extract_value "ApiStack" "BucketName")

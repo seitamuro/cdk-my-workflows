@@ -91,7 +91,7 @@ export class AuthStack extends cdk.Stack {
     authenticatedRole.addToPolicy(
       new cdk.aws_iam.PolicyStatement({
         effect: cdk.aws_iam.Effect.ALLOW,
-        actions: ["s3:ListAllMyBuckets"],
+        actions: ["s3:ListAllMyBuckets", "s3:PutObject"],
         resources: ["*"],
       })
     );
