@@ -93,6 +93,18 @@ app.post("/s3-upload", auth, async (c) => {
   );
 });
 
+app.post("/s3-upload-multiple", auth, async (c) => {
+  const body = await c.req.parseBody({ dot: true });
+  if (!body["files"]) {
+    console.log("No files provided");
+    return c.text("No files provided", 400);
+  }
+  console.log(body["files"]);
+  return c.json({
+    message: "Multiple files uploaded successfully",
+  });
+});
+
 app.get("/user-info", auth, async (c) => {
   return c.json({
     message: c.get("payload"),

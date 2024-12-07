@@ -27,6 +27,7 @@ const styles: Record<string, CSSProperties> = {
 export const S3UploadPage = () => {
   const [isOver, setIsOver] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -46,19 +47,57 @@ export const S3UploadPage = () => {
     setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
   };
 
+  const uploadSingleFile = async (url: string, file: File, idToken: string) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: idToken,
+        },
+      });
+      return res;
+    } catch (error) {
+      console.error(`Error uploading file ${file.name}:`, error);
+      throw error;
+    }
+  };
+
   const uploadFile = async (url: string, file: File) => {
-    const formData = new FormData();
-    const idToken = (await fetchAuthSession()).tokens?.idToken?.toString();
+    try {
+      setIsUploading(true);
+      const idToken = (await fetchAuthSession()).tokens?.idToken?.toString();
+      if (!idToken) throw new Error('認証トークンが取得できませんでした');
 
-    formData.append('file', file);
-    const res = await axios.post(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: idToken,
-      },
-    });
+      const res = await uploadSingleFile(url, file, idToken);
+      console.log(`${file.name} のアップロードが完了しました:`, res);
+      alert(`${file.name} のアップロードが完了しました`);
+    } catch (error) {
+      console.error('アップロードエラー:', error);
+      alert('アップロードに失敗しました');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
-    console.log(res);
+  const uploadFiles = async (url: string, files: File[]) => {
+    try {
+      setIsUploading(true);
+      const idToken = (await fetchAuthSession()).tokens?.idToken?.toString();
+      if (!idToken) throw new Error('認証トークンが取得できませんでした');
+
+      const uploadPromises = files.map((file) => uploadSingleFile(url, file, idToken));
+      const results = await Promise.all(uploadPromises);
+
+      console.log('すべてのファイルのアップロードが完了しました:', results);
+      alert('すべてのファイルのアップロードが完了しました');
+    } catch (error) {
+      console.error('アップロードエラー:', error);
+      alert('アップロードに失敗しました');
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -85,8 +124,15 @@ export const S3UploadPage = () => {
           </ul>
           <button
             onClick={() => uploadFile(`${import.meta.env.VITE_API_ENDPOINT}/s3-upload`, files[0])}
+            disabled={isUploading}
           >
-            アップロード
+            {isUploading ? 'アップロード中...' : 'アップロード(1つ)'}
+          </button>
+          <button
+            onClick={() => uploadFiles(`${import.meta.env.VITE_API_ENDPOINT}/s3-upload`, files)}
+            disabled={isUploading}
+          >
+            {isUploading ? 'アップロード中...' : 'アップロード(すべて)'}
           </button>
         </div>
       )}
