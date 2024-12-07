@@ -1,10 +1,10 @@
 import { CognitoJwtVerifier } from "aws-jwt-verify";
-import type { MiddlewareHandler } from "hono";
+import { factory } from "../utils/factory";
 
 const USER_POOL_ID = process.env.USER_POOL_ID!;
 const USER_POOL_CLIENT_ID = process.env.USER_POOL_CLIENT_ID!;
 
-export const auth: MiddlewareHandler = async (c, next) => {
+export const auth = factory.createMiddleware(async (c, next) => {
   const token = c.req.header("Authorization");
   console.log("token: ", token);
   if (!token) {
@@ -22,10 +22,9 @@ export const auth: MiddlewareHandler = async (c, next) => {
 
   try {
     const payload = await verifier.verify(token);
-    // @ts-ignore
-    c.req.idToken = payload;
+    c.set("payload", payload);
   } catch (e) {
     return c.json({ message: "Unauthorized", reason: JSON.stringify(e) }, 401);
   }
   return next();
-};
+});

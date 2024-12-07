@@ -3,14 +3,14 @@ import {
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
-import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { auth } from "./middleware/auth";
+import { factory } from "./utils/factory";
 import { getCredentials } from "./utils/getCredentials";
 
-export const app = new Hono();
+export const app = factory.createApp();
 
 app.use("*", logger());
 app.use("*", cors());
@@ -93,50 +93,10 @@ app.post("/s3-upload", auth, async (c) => {
   );
 });
 
-/*app.post("/s3-upload", auth, async (c) => {
-  try {
-    const { file } = await c.req.parseBody();
-    const credentials = await getCredentials(c.req.header("Authorization")!);
-    const client = new S3Client({
-      credentials: credentials,
-    });
-
-    if (!file) {
-      return c.json({
-        statusCode: 400,
-        body: {
-          message: "No file provided",
-        },
-      });
-    }
-
-    if (file instanceof File) {
-      console.log("File name:", file.name);
-      console.log("File size:", file.size);
-    }
-
-    const storage = new HonoS3Storage({
-      bucket: "tmp-seimiura",
-      key: (_, file) =>
-        `${file.originalname}-${new Date().getTime()}.${file.extension}`,
-      client: client,
-    });
-  } catch (e) {
-    console.log(e);
-    return c.json({
-      statusCode: 500,
-      body: {
-        message: "Failed to upload file",
-      },
-    });
-  }
-
+app.get("/user-info", auth, async (c) => {
   return c.json({
-    statusCode: 200,
-    body: {
-      message: "File uploaded successfully",
-    },
+    message: c.get("payload"),
   });
-});*/
+});
 
 export const handler = handle(app);
