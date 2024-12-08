@@ -106,9 +106,7 @@ app.post("/s3-upload-multiple", auth, async (c) => {
 });
 
 app.get("/user-info", auth, async (c) => {
-  return c.json({
-    message: c.get("payload"),
-  });
+  return c.json(c.get("payload"));
 });
 
 export const handler = handle(app);

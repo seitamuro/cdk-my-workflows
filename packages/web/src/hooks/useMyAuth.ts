@@ -1,12 +1,13 @@
 import { AuthSession, GetCurrentUserOutput } from '@aws-amplify/auth';
+import { JwtPayload } from 'aws-jwt-verify/jwt-model';
 import { createContext, useContext } from 'react';
-
 export interface AuthContextType {
   isAuthenticated: boolean;
   userId: string | null;
   authorization: string | null;
   currentUser: GetCurrentUserOutput | null;
   authSession: AuthSession | null;
+  payload: JwtPayload | null;
   refetch: () => Promise<void>;
 }
 

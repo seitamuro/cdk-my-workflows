@@ -5,6 +5,8 @@ import {
   getCurrentUser,
   GetCurrentUserOutput,
 } from '@aws-amplify/auth';
+import { decomposeUnverifiedJwt } from 'aws-jwt-verify/jwt';
+import { JwtPayload } from 'aws-jwt-verify/jwt-model';
 import { ReactNode, useEffect, useState } from 'react';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -13,6 +15,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [authorization, setAuthorization] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<GetCurrentUserOutput | null>(null);
   const [authSession, setAuthSession] = useState<AuthSession | null>(null);
+  //const { get } = useHttp();
+  //const { data } = get('/user-info');
+  const [payload, setPayload] = useState<JwtPayload | null>(null);
 
   const fetchAuthData = async () => {
     try {
@@ -20,6 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setAuthSession(sessionData);
       if (sessionData.tokens?.idToken) {
         setAuthorization(sessionData.tokens?.idToken?.toString());
+        setPayload(decomposeUnverifiedJwt(sessionData.tokens?.idToken?.toString()).payload);
       }
 
       const userData = await getCurrentUser();
@@ -45,6 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     authorization,
     currentUser,
     authSession,
+    payload,
     refetch: fetchAuthData,
   };
 
