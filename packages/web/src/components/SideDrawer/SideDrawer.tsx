@@ -76,6 +76,11 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ isOpen, onClose }) => {
                 User Info
               </Link>
             </li>
+            <li style={styles.menuItem} className="menu-item">
+              <Link to="/markdown" style={styles.link} onClick={onClose}>
+                Markdown
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

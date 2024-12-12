@@ -10,6 +10,7 @@ import { UserInfoPage } from '@/pages/UserInfoPage';
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
+import { MarkdownPage } from './pages/MarkdownPage';
 import { S3UploadPage } from './pages/S3UploadPage';
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/user-info" element={<UserInfoPage />} />
         <Route path="/bucket-list" element={<BucketListPage />} />
         <Route path="/s3-upload" element={<S3UploadPage />} />
+        <Route path="/markdown" element={<MarkdownPage />} />
       </Routes>
     </AuthProvider>
   );
